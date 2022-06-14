@@ -6,5 +6,28 @@
             <a href="/posts/save" role="button" class="btn btn-primary">게시글 등록</a>
         </div>
     </div>
+
+    <br>
+
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+        <tr>
+            <th>게시글번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>최종수정일</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+            {{#posts}} <!-- posts List를 순회, for문과 동일한 기능 -->
+                <tr>
+                    <td>{{id}}</td> <!-- List 객체에서 id 필드 값 -->
+                    <td><a href="/posts/update/{{id}}">{{title}}</a></td>
+                    <td>{{author}}</td>
+                    <td>{{modifiedDate}}</td>
+                </tr>
+            {{/posts}}
+        </tbody>
+    </table>
 </div>
 {{>layout/footer}}
