@@ -46,7 +46,8 @@ var main = {
             type : "PUT",
             url : "/api/v1/posts/" + id,
             dataType : "json",
-            contentType : "application/json; charset=utf-8",
+            contentType : "application/json; charset=utf-" +
+                "8",
             data : JSON.stringify(data),
         }).done(function () {
             alert("게시글이 수정되었습니다.");
