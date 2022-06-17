@@ -1,9 +1,13 @@
 package com.example.book.springboot.web;
 
+import com.example.book.springboot.config.auth.SecurityConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
@@ -13,12 +17,19 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * @WebMvcTest : WebSecurityConfigurerAdapter, WebSecurityConfigurer를 읽어들인다.
+ * 따라서 SecurityContig 클래스는 읽지만 CustomOAuth2UserService는 읽을수 없기 때문에 제외시켜준다.
+ */
 @ExtendWith(SpringExtension.class)
-@WebMvcTest
+@WebMvcTest(controllers = HelloController.class, excludeFilters = {
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+})
 public class HelloControllerTest {
     @Autowired
     private MockMvc mvc; // 스프링 MVC 테스트의 시작점
 
+    @WithMockUser(roles = "USER")
     @Test
     public void hello() throws Exception {
         String hello = "hello";
@@ -28,6 +39,7 @@ public class HelloControllerTest {
                 .andExpect(content().string(hello));
     }
 
+    @WithMockUser(roles = "USER")
     @Test
     public void helloDto() throws Exception {
         String name = "2kyun";

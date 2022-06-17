@@ -35,4 +35,5 @@ dependencies {
     implementation('org.springframework.session:spring-session-jdbc') // 세션 저장소를 DB로 선택
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.security:spring-security-test')
 }
