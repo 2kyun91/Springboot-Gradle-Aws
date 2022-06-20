@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable().headers().frameOptions().disable()
                 .and()
                 .authorizeRequests() // URL별 권한 관리 설정
-                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/bootstrap/**") // 권한 관리 대상 지정, URL, HTTP 메소드별로 관리가 가능
+                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**") // 권한 관리 대상 지정, URL, HTTP 메소드별로 관리가 가능
                 .permitAll() // permitAll : 위 지정된 URL들은 전체 열람 허용
                 .antMatchers("/api/v1/**")
                 .hasRole(Role.USER.name()) // 위 지정된 URL은 USER 권한을 가진 사람만 허용
