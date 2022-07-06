@@ -18,17 +18,16 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexController {
     private final PostsService postsService;
-//    private final HttpSession session; // 공통된 로직이므로 @LoginUser 어노테이션으로 대체한다.
+    private final HttpSession session; // 공통된 로직이므로 @LoginUser 어노테이션으로 대체한다.
 
     @GetMapping("/")
-    public String index(Model model, @LoginUser SessionUser sessionUser) { // Model : 클라이언트에서 사용할 수 있는 객체를 저장할 수 있다, findAllDesc() 결과를 저장.
+    public String index(Model model) { // Model : 클라이언트에서 사용할 수 있는 객체를 저장할 수 있다, findAllDesc() 결과를 저장.
         model.addAttribute("posts", postsService.findAllDesc());
 
-        //SessionUser sessionUser = (SessionUser) session.getAttribute("user");
+        SessionUser sessionUser = (SessionUser) session.getAttribute("user");
 
         if (!ObjectUtils.isEmpty(sessionUser)) {
             model.addAttribute("userName", sessionUser.getName());
-            model.addAttribute("userEmail", sessionUser.getEmail());
         }
 
         return "index";
