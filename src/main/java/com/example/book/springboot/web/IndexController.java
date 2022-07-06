@@ -28,6 +28,7 @@ public class IndexController {
 
         if (!ObjectUtils.isEmpty(sessionUser)) {
             model.addAttribute("userName", sessionUser.getName());
+            model.addAttribute("userEmail", sessionUser.getEmail());
         }
 
         return "index";
